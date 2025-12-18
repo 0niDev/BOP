@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BOP Nutraceuticals | Precision Livestock Care</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+            rel="stylesheet">
+        <style>
+        /* ==== THEME CORE ==== */
+        :root {
+            --primary: #c40000;
+            --primary-glow: #ff0000;
+            --bg-black: #050505;
+            --bg-card: #111111;
+            --text-white: #ffffff;
+            --text-gray: #a0a0a0;
+            --transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            /* Glow for the logo to make black visible on black */
+            --logo-glow: drop-shadow(0 0 8px rgba(196, 0, 0, 0.8));
+        }
+
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ==== PRELOADER ==== */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+        .loader-logo img { 
+            width: 140px; /* Increased preloader logo */
+            height: auto; 
+            margin-bottom: 25px; 
+            filter: var(--logo-glow); 
+        }
+        
+        .loader-bar { width: 150px; height: 2px; background: #222; position: relative; overflow: hidden; }
+        .loader-progress { position: absolute; width: 0; height: 100%; background: var(--primary); animation: load 2s infinite ease-in-out; }
+        @keyframes load { 0% { width: 0; left: 0; } 50% { width: 100%; left: 0; } 100% { width: 0; left: 100%; } }
+        .loaded #preloader { opacity: 0; visibility: hidden; }
+
+        /* ==== FIXED FLOATING NAV ==== */
+        .navbar {
+            position: fixed;
+            top: 25px; left: 50%;
+            transform: translateX(-50%);
+            width: 90%; max-width: 1100px;
+            height: 85px; /* Increased height for larger logo */
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 45px;
+            z-index: 2000;
+            transition: var(--transition);
+        }
+        .navbar:hover { border-color: var(--primary); background: rgba(10, 10, 10, 0.85); }
+        
+        .logo a { display: flex; align-items: center; text-decoration: none; }
+        .logo img { 
+            height: 55px; /* Increased from 40px */
+            width: auto; 
+            filter: var(--logo-glow);
+            transition: transform 0.3s ease;
+        }
+        .logo img:hover {
+            transform: scale(1.05); /* Interactive pop */
+        }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { 
+            color: var(--text-gray); 
+            text-decoration: none; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+            transition: 0.3s; 
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+        /* ==== HERO & PARTICLES ==== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('img/cow.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            overflow: hidden;
+        }
+        #particle-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .particle {
+            position: absolute;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+            opacity: 0.6;
+            animation: float-around var(--d) infinite ease-in-out;
+        }
+        @keyframes float-around {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.2); }
+            66% { transform: translate(-20px, -100px) scale(0.8); }
+        }
+        .hero-content { text-align: center; z-index: 5; }
+        .hero-title { font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 800; letter-spacing: -4px; line-height: 0.9; }
+
+        /* ==== SECTIONS ==== */
+        .reveal { opacity: 0; transform: translateY(40px); transition: var(--transition); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .cards-section { padding: 120px 10%; background: var(--bg-black); position: relative; z-index: 2; }
+        .cards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .card { 
+            background: var(--bg-card); 
+            padding: 60px 40px; 
+            border-radius: 30px; 
+            border: 1px solid rgba(255,255,255,0.03); 
+            text-align: center; 
+            transition: var(--transition); 
+            position: relative;
+        }
+        .card:hover { transform: translateY(-20px); border-color: var(--primary); box-shadow: 0 30px 60px rgba(196, 0, 0, 0.2); }
+        .card-icon { font-size: 3rem; color: var(--primary); margin-bottom: 20px; display: block; filter: drop-shadow(0 0 10px var(--primary)); }
+
+        /* ==== FOUNDER ==== */
+        .founder-section { padding: 120px 10%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 80px; }
+        .founder-text { flex: 1; min-width: 300px; }
+        .founder-img-wrapper { flex: 0 1 300px; position: relative; }
+        .founder-img-wrapper img { width: 100%; border-radius: 20px; filter: grayscale(100%); transition: var(--transition); }
+        .founder-img-wrapper:hover img { filter: grayscale(0%); transform: translateY(-10px); }
+
+        /* ==== FOOTER ==== */
+        footer { background: #000; padding: 100px 10% 40px; border-top: 1px solid #111; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 50px; }
+        
+        .footer-col .footer-logo { 
+            width: 120px; /* Increased footer logo */
+            margin-bottom: 20px; 
+            filter: var(--logo-glow);
+        }
+
+        .map-container {
+            width: 100%; height: 250px; border-radius: 20px; overflow: hidden;
+            filter: grayscale(100%) invert(90%) contrast(90%); transition: 0.5s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .map-container:hover { filter: grayscale(0%) invert(0%) contrast(100%); border-color: var(--primary); }
+        .map-container iframe { width: 100%; height: 100%; border: none; }
+        .footer-bottom { text-align: center; color: #444; font-size: 0.8rem; margin-top: 50px; padding-top: 30px; border-top: 1px solid #111; }
+
+        @media (max-width: 850px) { 
+            .nav-links { display: none; } 
+            .hero-title { font-size: 4rem; }
+            .navbar { height: 70px; padding: 0 25px; }
+            .logo img { height: 45px; }
+        }
+    </style>
+    </head>
+    <body>
+
+        <div id="preloader">
+            <div class="loader-logo">
+                <img src="img/logo.png" alt="BOP Logo">
+            </div>
+            <div class="loader-bar"><div class="loader-progress"></div></div>
+        </div>
+
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/logo.png" alt="BOP Nutraceuticals">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <section id="home" class="hero">
+            <div id="particle-container"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">BOP <br><span
+                        style="color:var(--primary)">Nutraceuticals</span></h1>
+                <p
+                    style="color:var(--text-gray); font-size: 1.1rem; letter-spacing: 4px; margin-top: 20px; font-weight: 300;">SCIENTIFIC
+                    EXCELLENCE</p>
+            </div>
+        </section>
+
+        <section id="values" class="cards-section">
+            <div class="cards-container">
+                <div class="card reveal">
+                    <span class="card-icon">◈</span>
+                    <h1>Quality</h1>
+                    <p>Ensuring top-notch livestock health through high-quality
+                        medicines tested to international standards.</p>
+                </div>
+                <div class="card reveal">
+                    <span class="card-icon">✦</span>
+                    <h1>Innovate</h1>
+                    <p>Dedicated to redefining industry standards with modern
+                        pharmaceutical research and development.</p>
+                </div>
+                <div class="card reveal">
+                    <span class="card-icon">🌿</span>
+                    <h1>Sustainable</h1>
+                    <p>Upholding eco-friendly manufacturing practices to create
+                        a healthier future for our ecosystem.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="founder-section">
+            <div class="founder-text reveal">
+                <h2
+                    style="font-size: 3rem; margin-bottom: 20px; color: var(--primary);">The
+                    Visionary</h2>
+                <p
+                    style="color: var(--text-gray); font-size: 1.2rem; max-width: 500px;">Our
+                    founder combines 20 years of clinical mastery with modern
+                    pharmaceutical innovation to lead the region's animal health
+                    sector.</p>
+            </div>
+            <div class="founder-img-wrapper reveal">
+                <img src="img/founder.jpeg" alt="Founder">
+            </div>
+        </section>
+
+        <footer id="contact">
+            <div class="footer-grid reveal">
+                <div class="footer-col">
+                    <img src="img/logo.png" alt="BOP Logo" class="footer-logo">
+                    <p>Email: info@bopnutraceuticals.com</p>
+                    <p>Phone: +92 321 6680859</p>
+                    <p style="margin-top: 15px; color: #555;">Faisalabad,
+                        Punjab, Pakistan</p>
+                </div>
+                <div class="footer-col">
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d108977.21857317616!2d73.01186718164062!3d31.4131548689531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x392242a89537b473%3A0x5181771804791e3e!2sFaisalabad%2C%20Punjab%2C%20Pakistan!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+                            allowfullscreen loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">© 2025 BOP NUTRACEUTICALS. PRECISION.
+                INTEGRITY. INNOVATION.</div>
+        </footer>
+
+        <script>
+        // Dynamic Particles
+        const container = document.getElementById('particle-container');
+        for (let i = 0; i < 50; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const size = Math.random() * 5 + 2 + 'px';
+            p.style.width = size; p.style.height = size;
+            p.style.top = Math.random() * 100 + '%';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.setProperty('--d', Math.random() * 10 + 10 + 's');
+            container.appendChild(p);
+        }
+
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => { document.body.classList.add('loaded'); }, 800);
+        });
+
+        // Scroll Reveals
+        const reveal = () => {
+            document.querySelectorAll(".reveal").forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add("active");
+            });
+        };
+        window.addEventListener('scroll', reveal);
+        reveal();
+    </script>
+    </body>
+</html>

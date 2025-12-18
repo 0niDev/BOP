@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product Categories | BOP Nutraceuticals</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+            rel="stylesheet">
+        <style>
+        :root {
+            --primary: #c40000;
+            --primary-glow: #ff0000;
+            --bg-black: #050505;
+            --text-white: #ffffff;
+            --text-gray: #a0a0a0;
+            --transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            --logo-glow: drop-shadow(0 0 8px rgba(196, 0, 0, 0.8));
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            overflow: hidden; /* Selection focus */
+        }
+
+        /* ==== NAV BAR ==== */
+        .navbar {
+            position: fixed; top: 25px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 1100px; height: 85px;
+            background: rgba(10, 10, 10, 0.6); backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 100px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 45px; z-index: 2000;
+            transition: var(--transition);
+        }
+        .navbar:hover { border-color: var(--primary); background: rgba(10, 10, 10, 0.85); }
+        
+        .logo a { display: flex; align-items: center; text-decoration: none; }
+        .logo img { 
+            height: 55px; 
+            width: auto; 
+            filter: var(--logo-glow);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { color: var(--text-gray); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+        /* ==== SELECTION WRAPPER ==== */
+        .selection-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        .category-panel {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            overflow: hidden;
+            transition: var(--transition);
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Panel Images */
+        .panel-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) brightness(0.3);
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .poultry-bg { background-image: url('img/poultry.jpg'); }
+        .livestock-bg { background-image: url('img/livestock.jpg'); }
+
+        /* Panel Content */
+        .panel-content {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .panel-content h1 {
+            font-size: clamp(3rem, 10vw, 6.5rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -3px;
+            line-height: 0.9;
+            margin-bottom: 25px;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+            transition: var(--transition);
+        }
+
+        .explore-btn {
+            display: inline-block;
+            padding: 14px 35px;
+            border: 1px solid var(--primary);
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            border-radius: 50px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        /* ==== HOVER EFFECTS ==== */
+        .category-panel:hover {
+            flex: 1.4;
+        }
+
+        .category-panel:hover .panel-bg {
+            filter: grayscale(0%) brightness(0.5);
+            transform: scale(1.05);
+        }
+
+        .category-panel:hover .panel-content h1 {
+            color: var(--text-white);
+            -webkit-text-stroke: 0px transparent;
+            transform: translateY(-10px);
+            text-shadow: 0 0 30px rgba(196, 0, 0, 0.5);
+        }
+
+        .category-panel:hover .explore-btn {
+            opacity: 1;
+            transform: translateY(0);
+            background: var(--primary);
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        /* Red Overlay Glow */
+        .category-panel::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 60%;
+            background: linear-gradient(to top, rgba(196, 0, 0, 0.35), transparent);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 2;
+        }
+        .category-panel:hover::after { opacity: 1; }
+
+        /* Mobile */
+        @media (max-width: 900px) {
+            .selection-container { flex-direction: column; }
+            .navbar { height: 75px; width: 95%; padding: 0 25px; top: 15px; }
+            .logo img { height: 45px; }
+            .nav-links { display: none; }
+            .category-panel:hover { flex: 1; }
+            .panel-content h1 { font-size: 3.5rem; -webkit-text-stroke: 0px #fff; color: #fff; }
+            .explore-btn { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    </head>
+    <body>
+
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/logo.png" alt="BOP Nutraceuticals">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <main class="selection-container">
+            <a href="poultry.html" class="category-panel">
+                <div class="panel-bg poultry-bg"></div>
+                <div class="panel-content">
+                    <p
+                        style="color: var(--primary); font-weight: 800; letter-spacing: 6px; margin-bottom: 15px; font-size: 0.8rem;">SERIES
+                        A</p>
+                    <h1>POULTRY</h1>
+                    <div class="explore-btn">Enter Division</div>
+                </div>
+            </a>
+
+            <a href="livestock.html" class="category-panel">
+                <div class="panel-bg livestock-bg"></div>
+                <div class="panel-content">
+                    <p
+                        style="color: var(--primary); font-weight: 800; letter-spacing: 6px; margin-bottom: 15px; font-size: 0.8rem;">SERIES
+                        B</p>
+                    <h1>LIVESTOCK</h1>
+                    <div class="explore-btn">Enter Division</div>
+                </div>
+            </a>
+        </main>
+
+    </body>
+</html>

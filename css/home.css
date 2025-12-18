@@ -1,0 +1,426 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --bg: #fff;
+    --main: darkred;
+    --text: #000;
+}
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 400;
+    overflow-x: hidden;
+    --webkit-font-smoothing: subpixel-antialiased;
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+*::selection {
+    background-color: var(--main);
+    color: var(--bg);
+}
+.cover {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--main);
+    position: absolute;
+    z-index: 10000;
+    transform: translate(0, 0);
+    animation: uncover 1.3s ease-in-out .5s forwards;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cover img {
+    width: 15%;
+    object-fit: cover;
+}
+@keyframes uncover {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(0, -100%);
+    }    
+}
+a {
+    text-decoration: none;
+    color: var(--text);
+}
+ul {
+    list-style: none;
+}
+img {
+    max-width: 100%;
+}
+/* #region  Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10vh;
+    padding: 1rem 2rem;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.navbar .logo a img {
+    width: 80px;
+    margin-left: 10px;
+}
+.navbar .menu-list {
+    margin-right: 50%;
+    transform: translate(50%, 0);
+    display: flex;
+}
+.navbar .menu-list li {
+    margin-left: 2rem;
+}
+.navbar .menu-list li a {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    transition: all 0.2s ease-in-out;
+}
+.navbar .menu-list li a:hover {
+    color: var(--main);
+}
+.navbar .menu-list li .active {
+    color: var(--main);
+}
+.navbar .menu-list li .active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--main);
+}
+.welcome .bg {
+    width: 100%;
+    height: 99.3vh;
+}
+.welcome .bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: fade 1.5s ease-in-out 1s forwards;
+}
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }    
+}
+.welcome .content {
+    padding: 20px 60px 20px 60px;
+    width: 40%;
+    position: absolute;
+    color: white;
+    top: 50%;
+    left: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    backdrop-filter: blur(5px) brightness(0.8);
+    border: 1px solid var(--main);
+}
+.welcome .content h1 {
+    font-size: clamp(1.5rem, 2vw, 3rem);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.welcome .content h2 {
+    font-size: clamp(.9rem, 1vw, 2.5rem);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.welcome .content h3 {
+    font-size: clamp(1rem, 2.5vw, 2rem);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: darkred;
+}
+.cards {
+    width: 100%;
+    margin-top: 7%;
+}
+.card1,
+.card2,
+.card3 {
+    float: left;
+    margin-left: 2.5%;
+    margin-bottom: 5%;
+    width: 30%;
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 3px;
+    padding: 20px;
+    border: 1px solid var(--main);
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+}
+.card1:hover,
+.card2:hover,
+.card3:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+svg {
+    height: 25%;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+.card1:hover svg,
+.card2:hover svg,
+.card3:hover svg {
+    fill: var(--main);
+}
+.card1 h1,
+.card2 h1,
+.card3 h1{
+    transition: all 0.2s ease-in-out;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+.card1 p,
+.card2 p,
+.card3 p {
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 20px;
+}
+.experience {
+    width: 95%;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border: 2px solid var(--main);
+    margin: 2.5%;
+}
+.experience .img {
+    width: 50%;
+}
+.experience .img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+}
+.experience:hover .img img {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+.experience .content {
+    width: 50%;
+    padding: 20px;
+    text-align: center;
+}
+.experience .content h1 {
+    font-size: clamp(1.5rem, 2vw, 2.5rem);
+    font-weight: 600;
+    margin-bottom: 10px;
+    transition: all 0.3s ease-in-out;
+}
+.experience:hover .content h1 {
+    color: var(--main);
+}
+.experience .content p {
+    font-size: clamp(1rem, 1vw, 1.5rem);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.experience .content svg {
+    width: 10%;
+    transition: all 0.3s ease-in-out;
+}
+.experience:hover .content svg {
+    fill: var(--main);
+}
+footer {
+    margin-top: 20vh;
+    background-color: var(--main);
+    width: 100%;
+    height: 40vh;
+    padding: 30px;
+}
+footer .content {
+    display: flex;
+    height: 80%;
+    justify-content: space-around;
+    position: relative;
+    left: 0;
+}
+footer .content div{
+    margin-top: 2%;
+    margin-bottom: 1%;
+    width: 30%;
+}
+footer .content .logo {
+    padding: 50px;
+    display: inline-block;
+}
+footer .content .logo img {
+    margin-left: 20%;
+    width: 40%;
+    object-fit: contain;
+}
+footer .heading h1{
+    position: relative;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    display: inline-block;
+}
+footer .content .info ul {
+    margin-left: 10%;
+    margin-top: 10%;
+}
+footer .content .info ul li:nth-child(odd){
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+footer .content .info ul li:nth-child(even){
+    margin-left: 30px;
+    font-weight: 500;
+}
+footer .content .map iframe {
+    margin-top: 7%;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+footer .copyright {
+    font-weight: 600;
+    margin-left: 5%;
+}
+@media screen and (max-width: 914px) {
+    .navbar{
+        display: none;
+    }
+    .welcome .content {
+        width: 90%;
+    }
+    .card1,
+    .card2,
+    .card3 {
+        float: none;
+        width: 95%;
+    }
+    .experience {
+        flex-direction: column;
+    }
+    .experience .img {
+        width: 100%;
+        height: 50%;
+    }
+    .experience .content {
+        width: 100%;
+
+    }
+    .experience .content svg {
+        width: 25%;
+        margin-bottom: 20px;
+    }
+    footer {
+        display: none;
+    }
+}
+/* Add styles for the mobile navigation button */
+.mobile-nav-button {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Style for the responsive navigation menu */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    z-index: 4000;
+    top: 10vh;
+    top: 0;
+    right: 0;
+    background-color: var(--bg);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+@keyframes slideIn {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }        
+}
+@keyframes slideOut {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }        
+}
+/* Media query for smaller screens */
+@media screen and (max-width: 914px) {
+    .mobile-nav-button {
+        display: block;
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 5000;
+    }
+    .navbar {
+        display: none; /* Hide the original navbar on small screens */
+        animation: slideIn 0.5s ease-in-out;
+    }
+
+    .mobile-nav {
+        width: 100%;
+        /* display: flex; */
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .mobile-nav a {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    .mobile-nav img {
+        margin-bottom: 1rem;
+    }
+}
+
+
+@keyframes slideOut {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }        
+}
+

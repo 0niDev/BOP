@@ -1,0 +1,254 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #fff;
+    --main: darkred;
+    --text: #000;
+}
+
+.mobile-nav-button {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.mobile-nav {
+    display: none;
+    position: fixed;
+    z-index: 4000;
+    top: 0;
+    right: 0;
+    background-color: var(--bg);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10vh;
+    padding: 1rem 2rem;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo a img {
+    width: 80px;
+    margin-left: 10px;
+}
+
+.navbar .menu-list {
+    margin-right: 50%;
+    transform: translate(50%, 0);
+    display: flex;
+}
+
+.navbar .menu-list li {
+    margin-left: 2rem;
+}
+
+.navbar .menu-list li a {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    transition: all 0.2s ease-in-out;
+}
+
+.navbar .menu-list li a:hover {
+    color: var(--main);
+}
+
+.navbar .menu-list li .active {
+    color: var(--main);
+}
+
+.navbar .menu-list li .active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--main);
+}
+
+a {
+    text-decoration: none;
+    color: var(--text);
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@media screen and (max-width: 914px) {
+    .navbar {
+        display: none;
+    }
+
+    .mobile-nav-button {
+        display: block;
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 5000;
+    }
+
+    .navbar {
+        display: none;
+        animation: slideIn 0.5s ease-in-out reverse;
+    }
+
+    .mobile-nav {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .mobile-nav a {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .mobile-nav img {
+        margin-bottom: 1rem;
+    }
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    width: 100%;
+    height: 100vh;
+    font-weight: 400;
+    overflow: hidden;
+    --webkit-font-smoothing: subpixel-antialiased;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+.heading {
+    top: 10vh;
+    width: 25vw;
+    margin: auto;
+    margin-top: 50px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 2px solid var(--main);
+    position: relative;
+}
+
+.heading h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    transform: translate(0,10%);
+}
+.choice {
+    position: relative;
+    top: 25vh;
+    /* border: 2px solid var(--main); */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 40vh;
+    width: 90vw;
+    margin: auto;
+
+}
+.choiceHeading {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: all 0.2s ease-in-out;
+}
+.choiceHeading:hover {
+    box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.choiceHeading img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.choiceHeading .choiceH1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--main);
+    padding: 2% 5%;
+    border: 2px solid var(--main);
+    backdrop-filter: blur(5px) brightness(80%);
+}
+.choice a {
+    position: relative;
+    border: 2px solid var(--main);
+    margin: 2%;
+    text-align: center;
+    width: 50%;
+    height: 50vh;
+}
+@media screen and (max-width: 914px) {
+    body {
+        overflow-y: visible;
+    }
+    .heading {
+        width: 80vw;
+    }
+
+    .choice {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .choice a {
+        width: 90%;
+    }
+}
+
+*::selection {
+    background-color: var(--main);
+    color: var(--bg);
+}

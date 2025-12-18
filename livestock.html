@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Livestock Solutions | BOP Nutraceuticals</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+            rel="stylesheet">
+        <style>
+        :root {
+            --primary: #c40000;
+            --primary-glow: #ff0000;
+            --bg-black: #050505;
+            --bg-card: #111111;
+            --text-white: #ffffff;
+            --text-gray: #a0a0a0;
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --logo-glow: drop-shadow(0 0 8px rgba(196, 0, 0, 0.8));
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-black); 
+            color: var(--text-white); 
+            overflow-x: hidden; 
+            line-height: 1.6;
+        }
+
+        /* ==== NAVIGATION ==== */
+        .navbar {
+            position: fixed; top: 25px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 1100px; height: 85px;
+            background: rgba(10, 10, 10, 0.6); backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 100px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 45px; z-index: 2000;
+            transition: var(--transition);
+        }
+        .navbar:hover { border-color: var(--primary); background: rgba(10, 10, 10, 0.85); }
+        
+        .logo a { display: flex; align-items: center; text-decoration: none; }
+        .logo img { 
+            height: 55px; 
+            width: auto; 
+            filter: var(--logo-glow);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { color: var(--text-gray); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+        /* ==== HERO ==== */
+        .livestock-hero {
+            height: 50vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: radial-gradient(circle at 50% 50%, #1a0000 0%, #050505 100%);
+            position: relative;
+            text-align: center;
+        }
+
+        /* ==== PRODUCT GRID ==== */
+        .container { max-width: 1300px; margin: 0 auto; padding: 50px 5% 100px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+
+        .product-card {
+            background: var(--bg-card); border-radius: 25px; padding: 20px;
+            border: 1px solid rgba(255,255,255,0.03); transition: var(--transition);
+            cursor: pointer; overflow: hidden; position: relative;
+        }
+        .product-card:hover { 
+            transform: translateY(-12px); 
+            border-color: var(--primary); 
+            box-shadow: 0 20px 50px rgba(196, 0, 0, 0.25); 
+        }
+        .product-card img { 
+            width: 100%; 
+            border-radius: 15px; 
+            transition: transform 0.8s ease; 
+            display: block; 
+            background: #000;
+        }
+        .product-card:hover img { transform: scale(1.05); }
+
+        /* ==== LIGHTBOX MODAL ==== */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
+            display: none; justify-content: center; align-items: center;
+            flex-direction: column; z-index: 3000; opacity: 0; transition: opacity 0.4s ease;
+        }
+        .modal.active { display: flex; opacity: 1; }
+
+        .modal-close {
+            position: absolute; top: 30px; right: 40px; font-size: 2.5rem;
+            color: white; cursor: pointer; transition: 0.3s; z-index: 3001;
+        }
+        .modal-close:hover { color: var(--primary); transform: rotate(90deg); }
+
+        .main-view { 
+            width: 90%; 
+            max-width: 900px; 
+            height: 60vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-bottom: 30px; 
+        }
+        .main-view img { 
+            max-width: 100%; 
+            max-height: 100%; 
+            border-radius: 20px; 
+            box-shadow: 0 0 80px rgba(196, 0, 0, 0.2); 
+            transition: transform 0.4s ease, opacity 0.4s ease; 
+        }
+
+        /* Thumbnail Strip */
+        .thumb-strip {
+            display: flex; gap: 15px; padding: 20px; width: 95%;
+            justify-content: center; overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .thumb-strip::-webkit-scrollbar { display: none; }
+        
+        .thumb {
+            width: 80px; height: 80px; border-radius: 12px; cursor: pointer;
+            border: 2px solid transparent; transition: 0.3s; opacity: 0.4;
+            object-fit: cover; flex-shrink: 0; background: #111;
+        }
+        .thumb:hover { opacity: 1; transform: translateY(-5px); }
+        .thumb.active { border-color: var(--primary); opacity: 1; transform: scale(1.1); box-shadow: 0 0 15px var(--primary); }
+
+        /* Animation Classes */
+        .reveal { opacity: 0; transform: translateY(30px); transition: var(--transition); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        footer { background: #000; padding: 80px 10% 40px; border-top: 1px solid #111; text-align: center; }
+        .footer-logo { width: 100px; margin-bottom: 20px; filter: var(--logo-glow); opacity: 0.6; }
+        .footer-bottom { color: #444; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+
+        @media (max-width: 900px) { 
+            .nav-links { display: none; } 
+            .navbar { height: 75px; padding: 0 25px; }
+            .logo img { height: 45px; }
+            .main-view { height: 45vh; } 
+        }
+    </style>
+    </head>
+    <body>
+
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/logo.png" alt="BOP Nutraceuticals">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <header class="livestock-hero">
+            <p
+                style="color: var(--primary); font-weight: 800; letter-spacing: 6px; margin-bottom: 10px; font-size: 0.9rem;">SERIES
+                B</p>
+            <h1
+                style="font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 800; letter-spacing: -2px;">LIVESTOCK
+                <span style="color:var(--primary)">SOLUTIONS</span></h1>
+        </header>
+
+        <div class="container">
+            <div class="product-grid" id="livestockGrid">
+            </div>
+        </div>
+
+        <div class="modal" id="productModal">
+            <span class="modal-close" id="closeBtn">&times;</span>
+            <div class="main-view" id="zoomContainer">
+                <img src="#" id="fullImg" alt="Livestock Product">
+            </div>
+            <div class="thumb-strip" id="thumbContainer">
+            </div>
+        </div>
+
+        <footer>
+            <img src="img/logo.png" alt="BOP Logo" class="footer-logo">
+            <div class="footer-bottom">© 2025 BOP NUTRACEUTICALS | PRECISION IN
+                LIVESTOCK NUTRITION</div>
+        </footer>
+
+        <script>
+        const livestockImgs = [
+            'img/livestock/1.jpg', 'img/livestock/2.jpg', 'img/livestock/3.jpg', 
+            'img/livestock/4.jpg', 'img/livestock/5.jpg', 'img/livestock/6.jpg', 
+            'img/livestock/7.jpg', 'img/livestock/8.jpg'
+        ];
+
+        const grid = document.getElementById('livestockGrid');
+        const modal = document.getElementById('productModal');
+        const fullImg = document.getElementById('fullImg');
+        const thumbContainer = document.getElementById('thumbContainer');
+        const closeBtn = document.getElementById('closeBtn');
+
+        // Build Grid and Thumbnails
+        livestockImgs.forEach((path, idx) => {
+            const card = document.createElement('div');
+            card.className = 'product-card reveal';
+            card.innerHTML = `<img src="${path}" alt="Livestock Solution ${idx+1}">`;
+            card.onclick = () => openLightbox(idx);
+            grid.appendChild(card);
+
+            const thumb = document.createElement('img');
+            thumb.src = path;
+            thumb.className = 'thumb';
+            thumb.onclick = (e) => {
+                e.stopPropagation();
+                switchImage(idx);
+            };
+            thumbContainer.appendChild(thumb);
+        });
+
+        function openLightbox(index) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            switchImage(index);
+        }
+
+        function switchImage(index) {
+            fullImg.style.opacity = '0';
+            fullImg.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                fullImg.src = livestockImgs[index];
+                fullImg.style.opacity = '1';
+                fullImg.style.transform = 'scale(1)';
+            }, 250);
+
+            document.querySelectorAll('.thumb').forEach((t, i) => {
+                t.classList.toggle('active', i === index);
+            });
+        }
+
+        closeBtn.onclick = () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        };
+
+        modal.onclick = (e) => {
+            if(e.target === modal || e.target === document.getElementById('zoomContainer')) {
+                closeBtn.onclick();
+            }
+        };
+
+        // Scroll Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+    </body>
+</html>

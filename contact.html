@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contact | BOP Nutraceuticals</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+            rel="stylesheet">
+        <style>
+        :root {
+            --primary: #c40000;
+            --primary-glow: #ff0000;
+            --bg-black: #050505;
+            --bg-card: #111111;
+            --text-white: #ffffff;
+            --text-gray: #a0a0a0;
+            --transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            --logo-glow: drop-shadow(0 0 8px rgba(196, 0, 0, 0.8));
+        }
+
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ==== PRELOADER ==== */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+        .loader-logo img { 
+            width: 140px; 
+            height: auto; 
+            filter: var(--logo-glow); 
+        }
+        .loader-bar { width: 150px; height: 2px; background: #222; margin-top: 25px; position: relative; overflow: hidden; }
+        .loader-progress { position: absolute; width: 0; height: 100%; background: var(--primary); animation: load 2s infinite ease-in-out; }
+        @keyframes load { 0% { width: 0; left: 0; } 50% { width: 100%; left: 0; } 100% { width: 0; left: 100%; } }
+        .loaded #preloader { opacity: 0; visibility: hidden; }
+
+        /* ==== NAV BAR ==== */
+        .navbar {
+            position: fixed; top: 25px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 1100px; height: 85px;
+            background: rgba(10, 10, 10, 0.6); backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 100px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 45px; z-index: 2000;
+            transition: var(--transition);
+        }
+        .navbar:hover { border-color: var(--primary); background: rgba(10, 10, 10, 0.85); }
+        
+        .logo a { display: flex; align-items: center; text-decoration: none; }
+        .logo img { 
+            height: 55px; 
+            width: auto; 
+            filter: var(--logo-glow);
+            transition: transform 0.3s ease;
+        }
+        .logo img:hover { transform: scale(1.05); }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { color: var(--text-gray); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+        /* ==== CONTACT HERO ==== */
+        .contact-hero {
+            height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: relative; overflow: hidden; text-align: center;
+            background: radial-gradient(circle at 50% 50%, #1a0000 0%, #050505 100%);
+        }
+        #particle-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .particle { position: absolute; background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary); opacity: 0.4; animation: float var(--d) infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+
+        /* ==== CONTACT CARDS ==== */
+        .contact-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 25px; 
+            padding: 0 10% 100px; 
+            max-width: 1200px; 
+            margin: -100px auto 0; 
+            position: relative;
+            z-index: 10;
+        }
+        .contact-card { 
+            background: var(--bg-card); 
+            padding: 60px 30px; 
+            border-radius: 30px; 
+            border: 1px solid rgba(255,255,255,0.03); 
+            text-align: center; 
+            transition: var(--transition); 
+            text-decoration: none;
+            display: block;
+        }
+        .contact-card:hover { 
+            transform: translateY(-15px); 
+            border-color: var(--primary); 
+            box-shadow: 0 30px 60px rgba(196, 0, 0, 0.15); 
+        }
+        .icon-box {
+            font-size: 2.5rem; 
+            margin-bottom: 20px; 
+            display: inline-block;
+            color: var(--primary);
+            filter: drop-shadow(0 0 10px var(--primary));
+        }
+        .contact-card h2 { color: var(--text-white); margin-bottom: 10px; font-size: 1.6rem; font-weight: 800; }
+        .contact-card p { color: var(--text-gray); font-size: 1rem; }
+
+        /* ==== MAP SECTION ==== */
+        .map-section { padding: 50px 10% 120px; }
+        .map-wrapper {
+            width: 100%; height: 450px; border-radius: 40px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            filter: grayscale(100%) invert(90%) contrast(90%);
+            transition: 1s ease;
+        }
+        .map-wrapper:hover { filter: grayscale(0%) invert(0%) contrast(100%); border-color: var(--primary); }
+        .map-wrapper iframe { width: 100%; height: 100%; border: none; }
+
+        /* ==== FOOTER ==== */
+        footer { background: #000; padding: 60px 10% 40px; border-top: 1px solid #111; text-align: center; }
+        .footer-logo { width: 100px; margin-bottom: 20px; filter: var(--logo-glow); opacity: 0.6; }
+        .footer-bottom { color: #444; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: var(--transition); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* MOBILE */
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .contact-grid { grid-template-columns: 1fr; margin-top: 20px; padding: 0 5% 50px; }
+            .contact-hero { height: 45vh; }
+            .navbar { height: 75px; padding: 0 25px; }
+            .logo img { height: 45px; }
+        }
+    </style>
+    </head>
+    <body>
+
+        <div id="preloader">
+            <div class="loader-logo">
+                <img src="img/logo.png" alt="BOP Logo">
+            </div>
+            <div class="loader-bar"><div class="loader-progress"></div></div>
+        </div>
+
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/logo.png" alt="BOP Nutraceuticals">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+
+        <header class="contact-hero">
+            <div id="particle-container"></div>
+            <h1
+                style="font-size: clamp(3.5rem, 10vw, 5rem); font-weight: 800; letter-spacing: -2px;">GET
+                IN <span style="color:var(--primary)">TOUCH</span></h1>
+            <p
+                style="color:var(--text-gray); letter-spacing: 5px; margin-top: 10px; font-size: 0.9rem; font-weight: 300;">GLOBAL
+                ASSISTANCE</p>
+        </header>
+
+        <section class="contact-grid">
+            <a href="mailto:info@bopnutraceuticals.com"
+                class="contact-card reveal">
+                <div class="icon-box">✉</div>
+                <h2>Email Us</h2>
+                <p>info@bopnutraceuticals.com</p>
+            </a>
+
+            <div class="contact-card reveal" style="cursor: pointer;"
+                onclick="copyToClipboard('+923216680859')">
+                <div class="icon-box">📞</div>
+                <h2>Call Us</h2>
+                <p>+92 321 6680859</p>
+                <span id="copy-toast"
+                    style="font-size: 0.75rem; color: var(--primary); display: block; margin-top: 15px; opacity: 0; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Click
+                    to copy number</span>
+            </div>
+
+            <a href="https://www.facebook.com/profile.php?id=100009126896645"
+                target="_blank" class="contact-card reveal">
+                <div class="icon-box">🌐</div>
+                <h2>Facebook</h2>
+                <p>Connect with us online</p>
+            </a>
+        </section>
+
+        <section class="map-section reveal">
+            <div class="map-wrapper">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d108933.26543021484!2d73.00331002287413!3d31.41113032486665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x392242a895a55ca9%3A0xdec58f88932671c6!2sFaisalabad%2C%20Pakistan!5e0!3m2!1sen!2s!4v1700000000000"
+                    allowfullscreen loading="lazy"></iframe>
+            </div>
+        </section>
+
+        <footer>
+            <img src="img/logo.png" alt="BOP Logo" class="footer-logo">
+            <div class="footer-bottom">© 2025 BOP NUTRACEUTICALS. PRECISION.
+                INTEGRITY. INNOVATION.</div>
+        </footer>
+
+        <script>
+        // Floating red particles
+        const container = document.getElementById('particle-container');
+        for (let i = 0; i < 40; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const size = Math.random() * 4 + 2 + 'px';
+            p.style.width = size; p.style.height = size;
+            p.style.top = Math.random() * 100 + '%';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.setProperty('--d', Math.random() * 8 + 4 + 's');
+            container.appendChild(p);
+        }
+
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => { document.body.classList.add('loaded'); }, 1000);
+        });
+
+        // Scroll Reveal
+        const reveal = () => {
+            document.querySelectorAll('.reveal').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active');
+            });
+        };
+        window.addEventListener('scroll', reveal);
+        reveal();
+
+        // Copy Function
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text);
+            const toast = document.getElementById('copy-toast');
+            const originalText = toast.innerText;
+            toast.innerText = "Number Copied!";
+            toast.style.opacity = "1";
+            setTimeout(() => { 
+                toast.style.opacity = "0";
+                setTimeout(() => { toast.innerText = originalText; }, 300);
+            }, 2000);
+        }
+    </script>
+    </body>
+</html>

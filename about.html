@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About Us | BOP Nutraceuticals</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+            rel="stylesheet">
+        <style>
+        :root {
+            --primary: #c40000;
+            --primary-glow: #ff0000;
+            --bg-black: #050505;
+            --bg-card: #111111;
+            --text-white: #ffffff;
+            --text-gray: #a0a0a0;
+            --transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            --logo-glow: drop-shadow(0 0 8px rgba(196, 0, 0, 0.8));
+        }
+
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ==== PRELOADER ==== */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+        .loader-logo img { 
+            width: 140px; 
+            height: auto; 
+            filter: var(--logo-glow); 
+        }
+        .loader-bar { width: 150px; height: 2px; background: #222; margin-top: 25px; position: relative; overflow: hidden; }
+        .loader-progress { position: absolute; width: 0; height: 100%; background: var(--primary); animation: load 2s infinite ease-in-out; }
+        @keyframes load { 0% { width: 0; left: 0; } 50% { width: 100%; left: 0; } 100% { width: 0; left: 100%; } }
+        .loaded #preloader { opacity: 0; visibility: hidden; }
+
+        /* ==== NAV BAR ==== */
+        .navbar {
+            position: fixed; top: 25px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 1100px; height: 85px;
+            background: rgba(10, 10, 10, 0.6); backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 100px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 45px; z-index: 2000;
+            transition: var(--transition);
+        }
+        .navbar:hover { border-color: var(--primary); background: rgba(10, 10, 10, 0.85); }
+        
+        .logo a { display: flex; align-items: center; text-decoration: none; }
+        .logo img { 
+            height: 55px; 
+            width: auto; 
+            filter: var(--logo-glow);
+            transition: transform 0.3s ease;
+        }
+        .logo img:hover { transform: scale(1.05); }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { color: var(--text-gray); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+        /* ==== ANIMATED HERO ==== */
+        .about-hero {
+            height: 70vh; display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, #1a0000 0%, #050505 100%);
+        }
+        .hero-glow {
+            position: absolute; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(196, 0, 0, 0.15) 0%, transparent 70%);
+            filter: blur(80px); animation: pulse-glow 10s infinite alternate;
+        }
+        @keyframes pulse-glow {
+            0% { transform: translate(-10%, -10%) scale(1); }
+            100% { transform: translate(10%, 10%) scale(1.2); }
+        }
+
+        #particle-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .particle { position: absolute; background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary); opacity: 0.4; animation: float var(--d) infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+
+        /* ==== MISSION GRID ==== */
+        .mission-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 25px; 
+            padding: 120px 5%; 
+            max-width: 1400px; 
+            margin: 0 auto; 
+        }
+        .mission-card { 
+            background: var(--bg-card); 
+            padding: 60px 40px; 
+            border-radius: 30px; 
+            border: 1px solid rgba(255,255,255,0.03); 
+            text-align: center; 
+            transition: var(--transition); 
+            position: relative; 
+            overflow: hidden;
+        }
+        .mission-card:hover { 
+            transform: translateY(-20px); 
+            border-color: var(--primary); 
+            box-shadow: 0 30px 60px rgba(196, 0, 0, 0.2); 
+        }
+        .card-icon {
+            font-size: 3rem; 
+            color: var(--primary); 
+            margin-bottom: 25px; 
+            display: block;
+            filter: drop-shadow(0 0 10px var(--primary));
+        }
+        .mission-card h2 { color: var(--text-white); margin-bottom: 15px; font-size: 1.8rem; font-weight: 800; }
+        .mission-card p { color: var(--text-gray); font-size: 1rem; line-height: 1.7; }
+
+        /* ==== CERTIFICATE SECTION ==== */
+        .cert-showcase { padding: 120px 10%; text-align: center; background: #080808; }
+        .cert-wrapper {
+            max-width: 500px; margin: 50px auto; position: relative;
+            padding: 20px; background: rgba(255,255,255,0.02);
+            border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition); cursor: zoom-in;
+        }
+        .cert-wrapper img { width: 100%; border-radius: 10px; filter: grayscale(100%); transition: 0.8s; }
+        .cert-wrapper:hover img { filter: grayscale(0%); }
+        .cert-wrapper:hover { border-color: var(--primary); transform: scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+
+        /* ==== FOOTER ==== */
+        footer { background: #000; padding: 100px 10% 40px; border-top: 1px solid #111; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 50px; }
+        .footer-logo { width: 120px; margin-bottom: 25px; filter: var(--logo-glow); }
+        .map-container {
+            width: 100%; height: 250px; border-radius: 20px; overflow: hidden;
+            filter: grayscale(100%) invert(90%) contrast(90%); transition: 0.5s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .map-container:hover { filter: grayscale(0%) invert(0%) contrast(100%); border-color: var(--primary); }
+        .map-container iframe { width: 100%; height: 100%; border: none; }
+        .footer-bottom { text-align: center; color: #444; font-size: 0.8rem; margin-top: 50px; padding-top: 30px; border-top: 1px solid #111; }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: var(--transition); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 1024px) {
+            .mission-grid { grid-template-columns: repeat(3, 1fr); padding: 80px 3%; }
+            .navbar { height: 75px; padding: 0 30px; }
+            .logo img { height: 45px; }
+        }
+
+        @media (max-width: 850px) { 
+            .nav-links { display: none; } 
+            .mission-grid { grid-template-columns: 1fr; gap: 30px; } 
+            .cert-wrapper { max-width: 90%; } 
+            .navbar { width: 95%; }
+        }
+    </style>
+    </head>
+    <body>
+
+        <div id="preloader">
+            <div class="loader-logo">
+                <img src="img/logo.png" alt="BOP Logo">
+            </div>
+            <div class="loader-bar"><div class="loader-progress"></div></div>
+        </div>
+
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/logo.png" alt="BOP Nutraceuticals">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <header class="about-hero">
+            <div class="hero-glow"></div>
+            <div id="particle-container"></div>
+            <h1
+                style="font-size: clamp(3rem, 10vw, 6rem); font-weight: 800; z-index: 5; letter-spacing: -2px;">OUR
+                <span style="color:var(--primary)">LEGACY</span></h1>
+        </header>
+
+        <section class="mission-grid">
+            <div class="mission-card reveal">
+                <span class="card-icon">🎯</span>
+                <h2>Our Mission</h2>
+                <p>To be a global leader in manufacturing high-quality
+                    veterinary medicines, prioritizing innovation and
+                    absolute customer satisfaction.</p>
+            </div>
+            <div class="mission-card reveal">
+                <span class="card-icon">🚀</span>
+                <h2>Innovation</h2>
+                <p>Staying at the forefront of industry advancements, ensuring
+                    that the animals entrusted to our care receive the
+                    highest precision possible.</p>
+            </div>
+            <div class="mission-card reveal">
+                <span class="card-icon">🔬</span>
+                <h2>Expertise</h2>
+                <p>Our team of university professors and veterinarians
+                    work together to ensure every product meets strict
+                    international standards.</p>
+            </div>
+        </section>
+
+        <section class="cert-showcase reveal">
+            <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Quality <span
+                    style="color:var(--primary)">Verified</span></h1>
+            <p style="color:var(--text-gray);">Official Manufacturer Certificate
+                of Enlistment</p>
+            <div class="cert-wrapper">
+                <img src="img/certificate.jpeg" alt="BOP Certificate">
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-grid reveal">
+                <div class="footer-col">
+                    <img src="img/logo.png" alt="BOP Logo" class="footer-logo">
+                    <p style="margin-bottom: 8px;">Email:
+                        info@bopnutraceuticals.com</p>
+                    <p style="margin-bottom: 8px;">Phone: +92 321 6680859</p>
+                    <p style="margin-top: 15px; color: #555;">Faisalabad,
+                        Punjab, Pakistan</p>
+                </div>
+                <div class="footer-col">
+                    <div class="map-container">
+                        <iframe
+                            src="http://googleusercontent.com/maps.google.com/4"
+                            allowfullscreen loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">© 2025 BOP NUTRACEUTICALS. PRECISION.
+                INTEGRITY. INNOVATION.</div>
+        </footer>
+
+        <script>
+        const container = document.getElementById('particle-container');
+        for (let i = 0; i < 40; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const size = Math.random() * 4 + 2 + 'px';
+            p.style.width = size; p.style.height = size;
+            p.style.top = Math.random() * 100 + '%';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.setProperty('--d', Math.random() * 8 + 4 + 's');
+            container.appendChild(p);
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(() => { document.body.classList.add('loaded'); }, 1000);
+        });
+
+        const reveal = () => {
+            document.querySelectorAll('.reveal').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
+            });
+        };
+        window.addEventListener('scroll', reveal);
+        reveal();
+    </script>
+    </body>
+</html>
